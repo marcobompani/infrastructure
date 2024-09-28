@@ -1,0 +1,11 @@
+name: infrastructure
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+description: My Infrastructure
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: python
