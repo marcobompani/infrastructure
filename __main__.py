@@ -25,9 +25,9 @@ packages:
 package_update: true
 package_upgrade: true
 runcmd:
-  - systemctl enable firewalld
-  - systemctl start firewalld
-  - firewall-cmd --zone=public --add-port=2222/tcp
+  #- systemctl enable firewalld
+  #- systemctl start firewalld
+  #- firewall-cmd --zone=public --add-port=2222/tcp
   - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)Port 22/s/^.*$/Port 2222/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
@@ -38,8 +38,7 @@ runcmd:
   - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
-  - sed -i '$a AllowUsers {user}' /etc/ssh/sshd_config
-  - reboot
+  - systemctl restart sshd
 '''
 
 # create puppet master with just IPv6 to save money
