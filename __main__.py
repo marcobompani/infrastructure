@@ -4,12 +4,13 @@ import pulumi_hcloud as hcloud
 import requests
 
 config = pulumi.Config()
-publicKey = config.require("publicKey")
+public_key = config.require("publicKey")
 user = config.require("user")
-token = os.getenv("DUCKDNS")
+ssh_port = config.require("SSHport")
 subdomain = config.require("subdomain")
+token = os.getenv("DUCKDNS")
 
-default = hcloud.SshKey("default", name="Marco Ubuntu", public_key=publicKey)
+default = hcloud.SshKey("default", name="Marco Ubuntu", public_key=public_key)
 
 cloud_init = f'''
 #cloud-config
@@ -18,7 +19,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
-      - {publicKey}
+      - {public_key}
 packages:
   - firewalld
   - tmux
@@ -26,7 +27,7 @@ package_update: true
 package_upgrade: true
 runcmd:
   - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
-  - sed -i -e '/^\(#\|\)Port 22/s/^.*$/Port 2222/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)Port 22/s/^.*$/Port {ssh_port}/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)KbdInteractiveAuthentication/s/^.*$/KbdInteractiveAuthentication no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)ChallengeResponseAuthentication/s/^.*$/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
@@ -44,7 +45,7 @@ myfirewall = hcloud.Firewall("myfirewall",
         {
             "direction": "in",
             "protocol": "tcp",
-            "port": "2222",
+            "port": ssh_port,
             "source_ips": [
                 "0.0.0.0/0",
                 "::/0",
