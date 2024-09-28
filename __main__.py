@@ -20,15 +20,14 @@ users:
     ssh_authorized_keys:
       - {publicKey}
 packages:
-  - fail2ban
-  - ufw
+  - firewalld
   - tmux
 package_update: true
 package_upgrade: true
 runcmd:
-  - systemctl enable fail2ban
-  - ufw allow 2222
-  - ufw enable
+  - systemctl enable firewalld
+  - systemctl start firewalld
+  - firewall-cmd --zone=public --add-port=2222/tcp
   - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)Port 22/s/^.*$/Port 2222/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
