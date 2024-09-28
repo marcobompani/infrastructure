@@ -25,9 +25,6 @@ packages:
 package_update: true
 package_upgrade: true
 runcmd:
-  #- systemctl enable firewalld
-  #- systemctl start firewalld
-  #- firewall-cmd --zone=public --add-port=2222/tcp
   - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)Port 22/s/^.*$/Port 2222/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
@@ -41,6 +38,20 @@ runcmd:
   - systemctl restart sshd
 '''
 
+myfirewall = hcloud.Firewall("myfirewall",
+    name="my-firewall",
+    rules=[
+        {
+            "direction": "in",
+            "protocol": "tcp",
+            "port": "2222",
+            "source_ips": [
+                "0.0.0.0/0",
+                "::/0",
+            ],
+        },
+    ])
+
 # create puppet master with just IPv6 to save money
 puppet_master = hcloud.Server("puppet-master",
     name="puppet-master",
@@ -49,6 +60,7 @@ puppet_master = hcloud.Server("puppet-master",
     server_type="cx22",
     user_data=cloud_init,
     ssh_keys=[default.id],
+    firewall_ids=[myfirewall.id],
     public_nets=[{
         "ipv4_enabled": False,
         "ipv6_enabled": True,
