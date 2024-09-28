@@ -57,6 +57,6 @@ puppet_master = hcloud.Server("puppet-master",
     }])
     
 pulumi.export("IPv6", puppet_master.ipv6_address)
+requests.get(f"https://www.duckdns.org/update?domains={subdomain}&token={token}&clear=true")
 response = puppet_master.ipv6_address.apply(lambda v: requests.get(f"https://www.duckdns.org/update?domains={subdomain}&token={token}&ipv6={v}"))
-response2 = puppet_master.ipv6_address.apply(lambda v: requests.get(f"https://enox8niy0oi2a.x.pipedream.net?domains={subdomain}&ipv6={v}"))
 pulumi.export("Duck DNS", response.text)
