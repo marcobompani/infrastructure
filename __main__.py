@@ -21,7 +21,6 @@ users:
     ssh_authorized_keys:
       - {public_key}
 packages:
-  - firewalld
   - tmux
 package_update: true
 package_upgrade: true
