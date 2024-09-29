@@ -16,6 +16,7 @@ cloud_init = f'''
 #cloud-config
 users:
   - name: {user}
+    groups: ssh-users
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
@@ -35,6 +36,7 @@ runcmd:
   - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
+  - sed -i '$a AllowGroups ssh-users' /etc/ssh/sshd_config
   - systemctl restart sshd
 '''
 
