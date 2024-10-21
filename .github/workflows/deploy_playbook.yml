@@ -1,10 +1,6 @@
 name: Deploy with Ansible
 
-on:
-  pull_request:
-    branches:
-      - main
-    types: [closed]
+on: push
 
 jobs:
   deploy:
