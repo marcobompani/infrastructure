@@ -21,7 +21,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y python3 python3-pip python3-venv
-          pip3 install ansible
+          pip3 install ansible python-dateutil
           git clone https://github.com/ansible-collections/hetzner.hcloud.git ~/.ansible/collections/ansible_collections/hetzner/hcloud
 
       - name: Run Ansible Playbook
