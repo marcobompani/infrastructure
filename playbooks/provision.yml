@@ -1,5 +1,7 @@
-- name: Provision
+- name: Provision Server
   hosts: localhost
+  connection: local
+  gather_facts: false
 
 - tasks:
 
