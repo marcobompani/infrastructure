@@ -1,5 +1,0 @@
-- name: Provision and Configure Puppet Master
-  hosts: all
-  become: true
-
-- include_tasks: provision.yml
