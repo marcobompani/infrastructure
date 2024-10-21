@@ -4,10 +4,10 @@
   gather_facts: false
   tasks:
 
-#- name: Create Ansible ssh_key
-#      hetzner.hcloud.ssh_key:
-  #        name: ansible@github-actions
-  #      public_key: lookup('ansible.builtin.env', 'SSH_PUBLIC_KEY')
+    - name: Create Ansible ssh_key
+      hetzner.hcloud.ssh_key:
+        name: ansible@github-actions
+        public_key: lookup('ansible.builtin.env', 'SSH_PUBLIC_KEY')
 
     - name: Create Puppet Master
       hetzner.hcloud.server:
