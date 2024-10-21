@@ -14,7 +14,7 @@ jobs:
       - name: Set up SSH
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
-          chmod 600 private_key.pem
+          chmod 600 private_key
 
       - name: Install Ansible
         shell: bash
