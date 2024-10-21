@@ -2,7 +2,7 @@
   hosts: all
   become: true
 
-tasks:
+- tasks:
 
   - name: Create Ansible ssh_key
     hetzner.hcloud.ssh_key:
