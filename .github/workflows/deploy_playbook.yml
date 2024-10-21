@@ -28,5 +28,5 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: False
           SSH_PUBLIC_KEY: ${{ vars.SSH_PUBLIC_KEY }}
         run: |
-          ansible-playbook provision.yml
+          ansible-playbook playbooks/provision.yml
           #ansible-playbook -i playbooks/provision.yml --private_key private_key -u ${{ vars.ANSIBLE_USER }}
