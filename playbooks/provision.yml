@@ -1,6 +1,4 @@
-- name: Provision and Configure Puppet Master
-  hosts: all
-  become: true
+- name: Provision
 
 - tasks:
 
