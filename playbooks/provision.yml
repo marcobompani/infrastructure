@@ -25,6 +25,7 @@
     - name: Create Puppet Master
       hetzner.hcloud.server:
         name: puppet-master
+        state: started
         server_type: cx22
         image: centos-stream-9
         enable_ipv4: false

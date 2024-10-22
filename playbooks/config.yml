@@ -1,5 +1,5 @@
 - name: Configure Puppet Master
-  hosts: marcobompani-puppet.duckdns.org
+  hosts: all
   tasks:
 
     - name: Make sure user marco is created
