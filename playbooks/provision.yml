@@ -37,4 +37,4 @@
 
     - name: Update DNS entry
       uri:
-        url: "https://www.duckdns.org/update?domains={{ marcobompani-puppet }}&token={{ duckdns }}&ipv6={{ results['hcloud_server']['ipv6'] }}"
+        url: "https://www.duckdns.org/update?domains=marcobompani-puppet&token={{ duckdns }}&ipv6={{ results['hcloud_server']['ipv6'] }}"
