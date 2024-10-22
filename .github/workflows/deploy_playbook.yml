@@ -14,6 +14,7 @@ jobs:
       - name: Set up SSH
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
+          echo "${{ vars.SSH_PUBLIC_KEY }}" > public_key
           chmod 600 private_key
 
       - name: Install Ansible
@@ -21,14 +22,12 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y python3 python3-pip python3-venv
-          pip3 install ansible python-dateutil
-          git clone https://github.com/ansible-collections/hetzner.hcloud.git ~/.ansible/collections/ansible_collections/hetzner/hcloud
+          pip3 install ansible hcloud
 
       - name: Run Ansible Playbook
         env:
           HCLOUD_TOKEN: ${{ secrets.SSH_PRIVATE_KEY }}
           ANSIBLE_HOST_KEY_CHECKING: False
-          SSH_PUBLIC_KEY: ${{ vars.SSH_PUBLIC_KEY }}
         run: |
           ansible-playbook playbooks/provision.yml
-          #ansible-playbook -i playbooks/provision.yml --private_key private_key -u ${{ vars.ANSIBLE_USER }}
+          #ansible-playbook -i inventory.ini playbooks/main.yml --private_key private_key -u ${{ vars.ANSIBLE_USER }}
