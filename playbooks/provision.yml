@@ -38,3 +38,10 @@
     - name: Update DNS entry
       uri:
         url: "https://www.duckdns.org/update?domains=marcobompani-puppet&token={{ duckdns }}&ipv6={{ results['hcloud_server']['ipv6'] }}"
+      register: status_code
+
+    - name: Debug
+      debug:
+        msg:
+          - status_code
+          - "https://www.duckdns.org/update?domains=marcobompani-puppet&token={{ duckdns }}&ipv6={{ results['hcloud_server']['ipv6'] }}"
