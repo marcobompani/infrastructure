@@ -9,6 +9,19 @@
         name: ansible@github-actions
         public_key: "{{ lookup('file', '../public_key') }}"
 
+    - name: Create Firewall
+      hetzner.hcloud.firewall:
+        name: my-firewall
+        state: present
+        rules:
+          - description: Allow SSH
+            direction: in
+            protocol: tcp
+            port: 2222
+            source_ips:
+              - 0.0.0.0/0
+              -::/0
+
     - name: Create Puppet Master
       hetzner.hcloud.server:
         name: puppet-master
@@ -17,3 +30,11 @@
         enable_ipv4: false
         ssh_keys:
           - ansible@github-actions
+        firewalls:
+          - my-firewall
+        user_data: "{{ lookup('file'), '../files/cloud-init.yml') }}"
+      register: results
+
+    - name:
+      debug:
+        msg: "{{ results }}"
