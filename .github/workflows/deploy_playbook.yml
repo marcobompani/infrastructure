@@ -26,7 +26,7 @@ jobs:
 
       - name: Run Ansible Playbook
         env:
-          HCLOUD_TOKEN: ${{ secrets.SSH_PRIVATE_KEY }}
+          HCLOUD_TOKEN: ${{ secrets.HETZNER_API }}
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
           ansible-playbook playbooks/provision.yml
