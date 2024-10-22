@@ -30,4 +30,4 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
           ansible-playbook playbooks/provision.yml --extra-vars "duckdns=${{ secrets.DUCKDNS_TOKEN }}"
-          ansible-playbook playbooks/config.yml --private_key private_key -u ${{ vars.ANSIBLE_USER }} -e "ansible_port=2222"
+          ansible-playbook playbooks/config.yml -e "ansible_port=2222" --private-key private_key -u ${{ vars.ANSIBLE_USER }}
