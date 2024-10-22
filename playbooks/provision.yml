@@ -32,7 +32,7 @@
           - ansible@github-actions
         firewalls:
           - my-firewall
-        user_data: "{{ lookup('file'), '../files/cloud-init.yml') }}"
+        user_data: "{{ lookup('file', '../files/cloud-init.yml') }}"
       register: results
 
     - name:
