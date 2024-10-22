@@ -1,0 +1,4 @@
+- name: Configure Puppet Master
+  hosts: marcobompani-puppet.duckdns.org
+  tasks:
+    name: marco
