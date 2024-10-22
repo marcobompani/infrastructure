@@ -29,5 +29,5 @@ jobs:
           HCLOUD_TOKEN: ${{ secrets.HETZNER_API }}
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
-          ansible-playbook playbooks/provision.yml
+          ansible-playbook playbooks/provision.yml --extra-vars "duckdns=${{ secrets.DUCKDNS_TOKEN }}"
           #ansible-playbook -i inventory.ini playbooks/main.yml --private_key private_key -u ${{ vars.ANSIBLE_USER }}

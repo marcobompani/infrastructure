@@ -35,6 +35,6 @@
         user_data: "{{ lookup('file', '../files/cloud-init.yml') }}"
       register: results
 
-    - name:
-      debug:
-        msg: "{{ results }}"
+    - name: Update DNS entry
+      uri:
+        url: "https://www.duckdns.org/update?domains={{ marcobompani-puppet }}&token={{ duckdns }}&ipv6={{ results['hcloud_server']['ipv6'] }}"
