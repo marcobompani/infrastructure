@@ -31,9 +31,10 @@
         enable_ipv4: false
         ssh_keys:
           - ansible@github-actions
+          - marco@marco-ubuntu
         firewalls:
           - my-firewall
-        user_data: "{{ lookup('file', '../files/cloud-init.yml') }}"
+          #user_data: "{{ lookup('file', '../files/cloud-init.yml') }}"
       register: results
 
     - name: Update DNS entry
