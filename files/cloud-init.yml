@@ -5,7 +5,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDInOYg/UVWMQki7VGZ2QdOzMLOdgpxmociPA+7mnhReaffH5Z/296mxiQ4FD3IIkuoTKGcWaLDvV1K5D3f34LeIMD9tW6EzJKWQ62hH6zhAUgHOaMdkUJSfl2S62A8mRlphxupCXubwZ6IEdAGiL5yWUU3MJ4CpTZEMQNdFAoiGbfluAB9CZbnapmDRKnk3qexsqgslkiphwtcTdNkWh19UiU0RI27vtSyj8dbQIpfC/1Zeqe8rcyg7R2AE6yrBn5BPrPIKdgQC92uh/eqMJHMSCgPHqHV97r7YzOxWUbxIvhcasmzWueW6+t3JvIaaaNm047NIAry7ptVq3GjROyu7J7jRz4mqP5o969nYjVPsQlgA05f67Rk5PyZvlWR+rQWoXh2yWVo+I5KW97Q4s3UqRTFL23PU0xU9x7O7RDpUY+X92mkAeT1XYeQKchuwSLPGVxeKeRDOhKLBjrH7TndkPmiZ86thPGgs6iBz3EQ8A6zIW+Q6MMDzLaesMH1COk= ansible@github-actions
+      - SSH_KEY
 packages:
   - tmux
 package_update: true
