@@ -1,0 +1,43 @@
+- name: Provision Server
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+    - name: Create Ansible ssh_key
+      hetzner.hcloud.ssh_key:
+        name: ansible@github-actions
+        public_key: "{{ lookup('file', '../public_key') }}"
+
+    - name: Create Firewall
+      hetzner.hcloud.firewall:
+        name: my-firewall
+        state: present
+        rules:
+          - description: Allow SSH
+            direction: in
+            protocol: tcp
+            port: 2222
+            source_ips:
+              - 0.0.0.0/0
+              - "::/0"
+
+    - name: Create Master Server
+      hetzner.hcloud.server:
+        name: master
+        state: started
+        server_type: cx22
+        image: centos-stream-9
+        enable_ipv4: false
+        location: nbg1
+        ssh_keys:
+          - ansible@github-actions
+        firewalls:
+          - my-firewall
+        user_data: "{{ lookup('file', '../files/cloud-init.yml') }}"
+      register: results
+
+    - name: Update DNS entry
+      uri:
+        url: "https://www.duckdns.org/update?domains=marcobompani-master&token={{ duckdns }}&ipv6={{ results['hcloud_server']['ipv6'] | replace('/64','1') }}"
+

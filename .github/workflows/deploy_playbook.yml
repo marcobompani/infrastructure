@@ -1,0 +1,30 @@
+name: Deploy with Ansible
+
+on: push
+
+jobs:
+  deploy:
+    name: Deploy Ansible Playbook
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Public Key
+        run: |
+          echo "${{ vars.SSH_PUBLIC_KEY }}" > public_key
+
+      - name: Install Ansible
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y python3 python3-pip python3-venv
+          pip3 install ansible hcloud
+
+      - name: Run Ansible Playbook
+        env:
+          HCLOUD_TOKEN: ${{ secrets.HETZNER_API }}
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook playbooks/provision.yml --extra-vars "duckdns=${{ secrets.DUCKDNS_TOKEN }}"

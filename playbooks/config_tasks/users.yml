@@ -1,0 +1,17 @@
+- name: Create and configure users
+  hosts: all
+  tasks:
+
+    - name: Make sure user marco is present
+      user:
+        name: marco
+        groups:
+          - ssh-user
+        append: true
+        shell: /bin/bash
+
+    - name: Make sure public key is present
+      ansible.posix.authorized_key:
+        user: marco
+        state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAEHX1Utw0z/62fDVXvXtVztqCXzTgr7C2OQ6V83U+K7eRGhcMF/IM3js0AxdV5K5pH1hgruABFaN3YK/Xxnfb1ZawcJ6MZ95M2jC+MacwUKYVUbvkIvilZEpm3OF0Jr34ReMqVJ7+BFLjHnsIPDTpV58wEsTZ2lfI5DYY0GOlboLqooTieeUVIdJOWcf0rEUwFwnc4k9cUJ4Dw0OYKaW+g/bs8NL/R7F0cmmzI6+R1TZEOZGwr/3ep/f9EfOSezvQAHJoQTosC7wdhXFxK8cYqe5CHFiK6TKwLkinwhmnG6Uvwf27+MMlqV31JvPEAsUvVwb4nHUugC2AjQo4YiUGEsilOgneLN7NDSwWxJeOsR4WbK0NkWpABW7ZfCVXf8pEm44AsTeyBwnzQZQk6SwyozMu8ynnoqb5+LTPFzcyPzJ8RAxPnZ/wzKZHkKgMwSsZZDSIc+an9hixJQQfBdmP39bf9vblVee7rlvr5O7MWXs/aKIekOBC58Wc2O/J2Kk= marco@marco-ubuntu
