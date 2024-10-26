@@ -13,8 +13,9 @@ jobs:
 
       - name: Create Public Key
         run: |
-          echo "${{ vars.SSH_PUBLIC_KEY }}" > public_key
-          sed -i -e "s/SSH_KEY/${{ vars.SSH_PUBLIC_KEY }}/" files/cloud-init.yml
+          SSH_PUBLIC_KEY=$(echo "${{ vars.SSH_PUBLIC_KEY }}")
+          echo "$SSH_PUBLIC_KEY" > public_key
+          sed -i "s/SSH_KEY/$SSH_PUBLIC_KEY/" files/cloud-init.yml
 
       - name: Install Ansible
         shell: bash
