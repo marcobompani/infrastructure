@@ -35,7 +35,8 @@
         state: started
         server_type: cx22
         image: centos-stream-9
-        enable_ipv4: false
+        enable_ipv4: true
+        enable_ipv6: true
         location: nbg1
         ssh_keys:
           - ansible@github-actions
