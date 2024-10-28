@@ -21,6 +21,13 @@
             source_ips:
               - 0.0.0.0/0
               - "::/0"
+          - description: Allow SSH
+            direction: in
+            protocol: udp
+            port: 51820
+            source_ips:
+              - 0.0.0.0/0
+              - "::/0"
 
     - name: Create Master Server
       hetzner.hcloud.server:
